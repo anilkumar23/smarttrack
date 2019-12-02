@@ -27,7 +27,8 @@ public class TTDPowerSupply implements Serializable {
     private String energy;
     private String subStation;
 
-    public TTDPowerSupply(String deviceId, String deviceName, String tStamp, String ipAddress, String power, String energy, String subStation) {
+    public TTDPowerSupply(String id, String deviceId, String deviceName, String tStamp, String ipAddress, String power, String energy, String subStation) {
+        this.id = id;
         this.deviceId = deviceId;
         this.deviceName = deviceName;
         this.tStamp = tStamp;
@@ -114,6 +115,7 @@ public class TTDPowerSupply implements Serializable {
                 ", ipAddress:'" + ipAddress + '\'' +
                 ", power:'" + power + '\'' +
                 ", energy:'" + energy + '\'' +
+                ", subStation:'" + subStation + '\'' +
                 '}';
     }
 }

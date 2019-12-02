@@ -25,8 +25,20 @@ public class ServiceImpl implements Service {
     public boolean insertData(TTDPowerSupply ttdPowerSupply) {
 //        ttdPowerSupplies.parallelStream().forEach(ttdPowerSupply ->
 //                ttdPowerSupply.setSubStation(ttdPowerSupply.getDeviceName().substring(0,ttdPowerSupply.getDeviceName().indexOf("0"))));
-        ttdPowerSupply.setSubStation(ttdPowerSupply.getDeviceName().substring(0,ttdPowerSupply.getDeviceName().indexOf("0")));
-    	smartTrackRepository.save(ttdPowerSupply);
+        try {
+            System.out.println("entered insert data method ==================>");
+            System.out.println("requested data ================>" + ttdPowerSupply.toString());
+            ttdPowerSupply.setSubStation(ttdPowerSupply.getDeviceName().substring(0, ttdPowerSupply.getDeviceName().indexOf("0")));
+            System.out.println("requested data ================>" + ttdPowerSupply.toString());
+            List<TTDPowerSupply> ttdPowerSupplies = smartTrackRepository.findAll();
+            ttdPowerSupplies.stream().forEach(ttdPowerSupply1 -> System.out.println("Retrieved data ==========>"+ttdPowerSupply1));
+            smartTrackRepository.save(ttdPowerSupply);
+            System.out.println("saved the data====================>");
+        } catch (Exception ex) {
+            System.out.println("exception occured ================>");
+            System.out.println(ex);
+            return false;
+        }
         return true;
     }
 
@@ -38,7 +50,7 @@ public class ServiceImpl implements Service {
         Map<String, String[]> map = new HashMap<>();
         int count = 1;
         int c = 0;
-        List<TTDPowerSupply> ttdPowerSupplies = smartTrackRepository.findByTStampContainsAndDeviceNameContaining(smartTrackRequest.getTimestamp(),
+        List<TTDPowerSupply> ttdPowerSupplies = smartTrackRepository.findBytStampContainsAndDeviceNameContaining(smartTrackRequest.getTimestamp(),
                 smartTrackRequest.getDeviceName());
         for (TTDPowerSupply ttdPowerSupply : ttdPowerSupplies) {
             if (ttdPowerSupply.getDeviceName().contains(smartTrackRequest.getDeviceName())) {

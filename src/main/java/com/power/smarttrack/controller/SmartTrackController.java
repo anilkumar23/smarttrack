@@ -2,6 +2,7 @@ package com.power.smarttrack.controller;
 
 import javax.servlet.http.HttpServletResponse;
 
+import com.power.smarttrack.serviceImpl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -25,7 +26,7 @@ import com.power.smarttrack.util.SmartTrackUtils;
 public class SmartTrackController {
 
 	@Autowired
-	public Service service;
+	public ServiceImpl service;
 
 	@RequestMapping(value = "/send", method = RequestMethod.POST, headers = "Accept=application/json")
 	public HttpStatus insertData(@RequestBody TTDPowerSupply ttdPowerSupplyList) {
